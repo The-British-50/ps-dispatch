@@ -74,6 +74,8 @@ sound2 -- GTA sound to play
 
 - exports['ps-dispatch']:InjuriedPerson()
 
+- exports['ps-dispatch']:DeceasedPerson()
+
 - exports['ps-dispatch']:StoreRobbery(camId)
 
 - exports['ps-dispatch']:FleecaBankRobbery(camId)
@@ -87,8 +89,6 @@ sound2 -- GTA sound to play
 - exports['ps-dispatch']:VangelicoRobbery(camId)
 
 - exports['ps-dispatch']:HouseRobbery()
-
-- exports['ps-dispatch']:PrisonBreak()
 
 - exports['ps-dispatch']:DrugSale()
 
