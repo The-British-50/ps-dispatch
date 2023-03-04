@@ -6,9 +6,9 @@ Config.Timer = {}
 Config.PoliceJob = { "police"}
 
 -- Enable if you only want to send alerts to onDuty officers
-Config.OnDutyOnly = false
+Config.OnDutyOnly = true
 
-Config.PoliceAndAmbulance = { "police", "ambulance" }
+Config.PoliceAndAmbulance = { "police", "ambulance", "bcso"}
 Config.PhoneModel = 'prop_npc_phone_02'
 
 -- sets report chance to 100%
@@ -22,7 +22,7 @@ Config.ExplosionTypes = {9}
 Config.Enable.Speeding = false
 Config.Enable.Shooting = true
 Config.Enable.Autotheft = true
-Config.Enable.Melee = true
+Config.Enable.Melee = false
 Config.Enable.PlayerDowned = true
 ---------------------------------------------------------------
 Config.Locale = 'en'

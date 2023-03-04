@@ -42,7 +42,7 @@ local function NewPropWhoDis()
 	end
 end
 
--- Does the actual animation of the animation when calling 911
+-- Does the actual animation of the animation when calling 999
 local function PhoneCallAnim()
     loadAnimDict("cellphone@")
     local ped = PlayerPedId()
@@ -59,8 +59,8 @@ local function PhoneCallAnim()
 end
 
 
--- Regular 911 call that goes straight to the Police
-RegisterCommand('911', function(source, args, rawCommand)
+-- Regular 999 call that goes straight to the Police
+RegisterCommand('999', function(source, args, rawCommand)
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
         if not exports['qb-policejob']:IsHandcuffed() then
@@ -73,8 +73,8 @@ RegisterCommand('911', function(source, args, rawCommand)
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
                 TriggerServerEvent("dispatch:server:notify",{
-                    dispatchcodename = "911call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
-                    dispatchCode = "911",
+                    dispatchcodename = "999call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+                    dispatchCode = "999",
                     firstStreet = locationInfo,
                     priority = 2, -- priority
                     name = plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
@@ -98,11 +98,11 @@ RegisterCommand('911', function(source, args, rawCommand)
             QBCore.Functions.Notify("You can't call police while handcuffed!", "error", 4500)
         end
     else
-        QBCore.Functions.Notify('Please put a reason after the 911', "success")
+        QBCore.Functions.Notify('Please put a reason after the 999', "success")
     end
 end)
 
-RegisterCommand('911a', function(source, args, rawCommand)
+RegisterCommand('999a', function(source, args, rawCommand)
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
         if not exports['qb-policejob']:IsHandcuffed() then
@@ -115,8 +115,8 @@ RegisterCommand('911a', function(source, args, rawCommand)
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
                 TriggerServerEvent("dispatch:server:notify",{
-                    dispatchcodename = "911call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
-                    dispatchCode = "911",
+                    dispatchcodename = "999call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+                    dispatchCode = "999",
                     firstStreet = locationInfo,
                     priority = 2, -- priority
                     name = "Anonymous",
@@ -140,12 +140,12 @@ RegisterCommand('911a', function(source, args, rawCommand)
             QBCore.Functions.Notify("You can't call police while handcuffed!", "error", 4500)
         end
     else
-        QBCore.Functions.Notify('Please put a reason after the 911', "success")
+        QBCore.Functions.Notify('Please put a reason after the 999', "success")
     end
 end)
 
--- Regular 311 call that goes straight to the Police
-RegisterCommand('311', function(source, args, rawCommand)
+-- Regular 112 call that goes straight to the Police
+RegisterCommand('112', function(source, args, rawCommand)
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
         if not exports['qb-policejob']:IsHandcuffed() then
@@ -158,8 +158,8 @@ RegisterCommand('311', function(source, args, rawCommand)
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
                 TriggerServerEvent("dispatch:server:notify",{
-                    dispatchcodename = "311call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
-                    dispatchCode = "311",
+                    dispatchcodename = "112call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+                    dispatchCode = "112",
                     firstStreet = locationInfo,
                     priority = 2, -- priority
                     name = plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
@@ -183,12 +183,12 @@ RegisterCommand('311', function(source, args, rawCommand)
             QBCore.Functions.Notify("You can't call police while handcuffed!", "error", 4500)
         end
     else
-        QBCore.Functions.Notify('Please put a reason after the 911', "success")
+        QBCore.Functions.Notify('Please put a reason after the 999', "success")
     end
 end)
 
--- Regular 311 call that goes straight to the Police
-RegisterCommand('311a', function(source, args, rawCommand)
+-- Regular 112 call that goes straight to the Police
+RegisterCommand('112a', function(source, args, rawCommand)
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
         if not exports['qb-policejob']:IsHandcuffed() then
@@ -201,8 +201,8 @@ RegisterCommand('311a', function(source, args, rawCommand)
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
                 TriggerServerEvent("dispatch:server:notify",{
-                    dispatchcodename = "311call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
-                    dispatchCode = "311",
+                    dispatchcodename = "112call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+                    dispatchCode = "112",
                     firstStreet = locationInfo,
                     priority = 2, -- priority
                     name = "Anonymous",
@@ -226,14 +226,14 @@ RegisterCommand('311a', function(source, args, rawCommand)
             QBCore.Functions.Notify("You can't call police while handcuffed!", "error", 4500)
         end
     else
-        QBCore.Functions.Notify('Please put a reason after the 911', "success")
+        QBCore.Functions.Notify('Please put a reason after the 999', "success")
     end
 end)
 
 
 Citizen.CreateThread(function()
-    TriggerEvent('chat:addSuggestion', '/911', 'Send a message to the police.', {{ name="message", help="Message to police."}})
-    TriggerEvent('chat:addSuggestion', '/911a', 'Send a message to the police anonymously.', {{ name="message", help="Message to police anonymous."}})
-    TriggerEvent('chat:addSuggestion', '/311', 'Send a message to the EMS.', {{ name="message", help="Message to EMS."}})
-    TriggerEvent('chat:addSuggestion', '/311a', 'Send a message to the EMS anonymously.', {{ name="message", help="Message to EMS anonymous."}})
+    TriggerEvent('chat:addSuggestion', '/999', 'Send a message to the police.', {{ name="message", help="Message to police."}})
+    TriggerEvent('chat:addSuggestion', '/999a', 'Send a message to the police anonymously.', {{ name="message", help="Message to police anonymous."}})
+    TriggerEvent('chat:addSuggestion', '/112', 'Send a message to the EMS.', {{ name="message", help="Message to EMS."}})
+    TriggerEvent('chat:addSuggestion', '/112a', 'Send a message to the EMS anonymously.', {{ name="message", help="Message to EMS anonymous."}})
 end)

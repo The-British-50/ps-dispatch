@@ -9,7 +9,7 @@ local WeaponTable = {
     [137902532]   = "CLASS 2: Vintage Pistol",
     [-598887786]  = "CLASS 2: Marksman Pistol",
     [-1045183535] = "CLASS 2: Revolver",
-    [911657153]   = "Taser",
+    [999657153]   = "Taser",
     [324215364]   = "CLASS 2: Micro-SMG",
     [-619010992]  = "CLASS 2: Machine-Pistol",
     [736523883]   = "CLASS 2: SMG",
@@ -613,32 +613,6 @@ local function Explosion()
 end
 
 exports('Explosion', Explosion)
-
-local function VanRobbery()
-    local currentPos = GetEntityCoords(PlayerPedId())
-    local locationInfo = getStreetandZone(currentPos)
-    local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify", {
-        dispatchcodename = "vanrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
-        dispatchCode = "10-90",
-        firstStreet = locationInfo,
-        gender = gender,
-        model = nil,
-        plate = nil,
-        priority = 2, -- priority
-        firstColor = nil,
-        automaticGunfire = false,
-        origin = {
-            x = currentPos.x,
-            y = currentPos.y,
-            z = currentPos.z
-        },
-        dispatchMessage = _U('vanrobbery'), -- message
-        job = { "police" } -- jobs that will get the alerts
-    })
-end
-
-exports('VanRobbery', VanRobbery)
 
 local function SuspiciousActivity()
     local currentPos = GetEntityCoords(PlayerPedId())
