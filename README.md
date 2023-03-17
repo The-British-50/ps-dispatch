@@ -1,10 +1,9 @@
 # QBCore Dispatch
 
-Integrated with https://github.com/Project-Sloth/ps-mdt
+Integrated with [ps-mdt](https://github.com/Project-Sloth/ps-mdt)
 
-For all support questions, ask in our Discord support chat. Do not create issues if you need help. Issues are for bug reporting and new features only.
-
-https://www.discord.gg/projectsloth
+For all support questions, ask in our [Discord](https://www.discord.gg/projectsloth) support chat. 
+Do not create issues on GitHub if you need help. Issues are for bug reporting and new features only.
 
 # Installation
 * Download ZIP
@@ -12,52 +11,6 @@ https://www.discord.gg/projectsloth
 * Start resource through server.cfg
 * Drag and drop sounds folder into interact-sound\client\html\sounds
 * Restart your server.
-
-
-# Alert Exports
-
-
-# Custom Alert Handler
-```lua
-exports["ps-dispatch"]:CustomAlert({
-    coords = vector3(0.0, 0.0, 0.0),
-    message = "Criminal Activity",
-    dispatchCode = "10-4 Rubber Ducky",
-    description = "Blip Name here",
-    radius = 0,
-    sprite = 64,
-    color = 2,
-    scale = 1.0,
-    length = 3,
-})
-
-Table Arguements:
-
-displayCode -- The code for the alert ( 10-4, 10-11, 400-9, etc)
-message -- Alert message
-gender -- TRUE/FALSE  to enable gender data on the alert
-plate  -- Plate of a vehicle
-priority -- Priority of the alert
-firstColor -- Color of the vehicle
-automaticGunfire -- TRUE/FALSE Automatic weapon
-camId -- Camera ID
-callsign -- Callsign on the player
-name -- Name of the player
-doorCount -- Number of doors the vehicle has
-heading -- Heading of an entity
-description -- Name of the blip 
-radius -- if the blip has a radius
-recipientList -- { "police", "ems", "pbso" } Jobs that get the alert 
-blipSprite -- Blip Sprite
-blipColour -- Blip Color
-blipScale -- Blip Color 
-blipLength -- Blip Length : How long it stays on the map
-offset -- Offset of the blip
-blipflash -- If the blip flashes or not
-sound -- GTA sound to play 
-sound2 -- GTA sound to play
-
-```
 
 # Preset Alert Exports.
 
@@ -119,7 +72,10 @@ sound2 -- GTA sound to play
 - exports['ps-dispatch']:SignRobbery()
 ```
 
-# Steps to Create New Alert
+# Sample Preview
+![image](https://user-images.githubusercontent.com/82112471/224476364-a362b703-f673-4c34-bd4a-f2b15aa15cb1.png)
+
+# Creating New Alerts
 
 1. Create a client event that will be triggered from whatever script you want
 
@@ -195,9 +151,44 @@ end
 exports('SpeedingVehicle', SpeedingVehicle)
 ```
 
-Rest steps will be similar as mentioned above in Steps to create alerts.
+# Custom Alert Handler
+```lua
+exports["ps-dispatch"]:CustomAlert({
+    coords = vector3(0.0, 0.0, 0.0),
+    message = "Criminal Activity",
+    dispatchCode = "10-4 Rubber Ducky",
+    description = "Blip Name here",
+    radius = 0,
+    sprite = 64,
+    color = 2,
+    scale = 1.0,
+    length = 3,
+})
 
-# Work to be done
+Table Arguements:
 
-* Hunting Zones
-* Locales for alerts
+displayCode -- The code for the alert ( 10-4, 10-11, 400-9, etc)
+message -- Alert message
+gender -- TRUE/FALSE  to enable gender data on the alert
+plate  -- Plate of a vehicle
+priority -- Priority of the alert
+firstColor -- Color of the vehicle
+automaticGunfire -- TRUE/FALSE Automatic weapon
+camId -- Camera ID
+callsign -- Callsign on the player
+name -- Name of the player
+doorCount -- Number of doors the vehicle has
+heading -- Heading of an entity
+description -- Name of the blip 
+radius -- if the blip has a radius
+recipientList -- { "police", "ems", "pbso" } Jobs that get the alert 
+blipSprite -- Blip Sprite
+blipColour -- Blip Color
+blipScale -- Blip Color 
+blipLength -- Blip Length : How long it stays on the map
+offset -- Offset of the blip
+blipflash -- If the blip flashes or not
+sound -- GTA sound to play 
+sound2 -- GTA sound to play
+
+```
