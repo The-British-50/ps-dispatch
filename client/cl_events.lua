@@ -41,7 +41,7 @@ local WeaponTable = {
     [-275439685]  = "CLASS 2: Doublebarrel Shotgun",
     [317205821]   = "CLASS 2: Autoshotgun",
     [-1568386805] = "CLASS 5: GRENADE LAUNCHER",
-    [-1312131151] = "CLASS 5: RPG",
+    [-1312111251] = "CLASS 5: RPG",
     [125959754]   = "CLASS 5: Compactlauncher"
 }
 local function VehicleTheft(vehicle)
