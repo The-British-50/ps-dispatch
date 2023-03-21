@@ -22,7 +22,7 @@ local function ArtGalleryRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('artgalleryrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('ArtGalleryRobbery', ArtGalleryRobbery)
 
@@ -46,7 +46,7 @@ local function HumaneRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('humanerobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('HumaneRobbery', HumaneRobbery)
 
@@ -70,7 +70,7 @@ local function TrainRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('trainrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('TrainRobbery', TrainRobbery)
 
@@ -94,7 +94,7 @@ local function VanRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('vanrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('VanRobbery', VanRobbery)
 
@@ -118,7 +118,7 @@ local function UndergroundRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('underground'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('UndergroundRobbery', UndergroundRobbery)
 
@@ -142,7 +142,7 @@ local function DrugBoatRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('drugboatrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('DrugBoatRobbery', DrugBoatRobbery)
 
@@ -166,7 +166,7 @@ local function UnionRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('unionrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('UnionRobbery', UnionRobbery)
 
@@ -191,7 +191,7 @@ local function CarBoosting(vehicle)
             z = currentPos.z
         },
         dispatchMessage = _U('carboosting'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('CarBoosting', CarBoosting)
 
@@ -219,35 +219,6 @@ local function SignRobbery()
             z = currentPos.z
         },
         dispatchMessage = 'Sign Robbery Committed', -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('SignRobbery', SignRobbery)
-
-
------------------
--- ATM Robbery --
------------------
-
-local function AtmRobbery()
-    local currentPos = GetEntityCoords(PlayerPedId())
-    local locationInfo = getStreetandZone(currentPos)
-    local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
-        dispatchcodename = "atmrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
-        dispatchCode = "10-90",
-        firstStreet = locationInfo,
-        gender = gender,
-        model = nil,
-        plate = nil,
-        priority = 2, -- priority
-        firstColor = nil,
-        automaticGunfire = false,
-        origin = {
-            x = currentPos.x,
-            y = currentPos.y,
-            z = currentPos.z
-        },
-        dispatchMessage = 'Atm Robbery Committed', -- message
-        job = {"police"} -- jobs that will get the alerts
-    })
-end exports('AtmRobbery', AtmRobbery)
