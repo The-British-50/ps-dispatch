@@ -4,37 +4,13 @@ Config = {}
 
 Config.Enable = {}
 Config.Timer = {}
+Config.Locale = 'en'
 
-Config.AuthorizedJobs = {
-    LEO = { -- this is for job checks which should only return true for police officers
-        Jobs = {['police'] = true, ['fib'] = true, ['sheriff'] = true},
-        Types = {['police'] = true, ['leo'] = true},
-        Check = function()
-            local PlyData = QBCore.Functions.GetPlayerData()
-            local job, jobtype = PlyData.job.name, PlyData.job.type
-            if Config.AuthorizedJobs.LEO.Jobs[job] or Config.AuthorizedJobs.LEO.Types[jobtype] then return true end
-        end
-    },
-    EMS = { -- this if for job checks which should only return true for ems workers
-        Jobs = {['ambulance'] = true, ['fire'] = true},
-        Types = {['ambulance'] = true, ['fire'] = true, ['ems'] = true},
-        Check = function()
-            local PlyData = QBCore.Functions.GetPlayerData()
-            local job, jobtype = PlyData.job.name, PlyData.job.type
-            if Config.AuthorizedJobs.EMS.Jobs[job] or Config.AuthorizedJobs.EMS.Types[jobtype] then return true end
-        end
-    },
-    FirstResponder = { -- do not touch, this is a combined job checking function for emergency services (police and ems)
-        Check = function()
-            local PlyData = QBCore.Functions.GetPlayerData()
-            local job, jobtype = PlyData.job.name, PlyData.job.type
-            if Config.AuthorizedJobs.LEO.Check(jobtype, job) or Config.AuthorizedJobs.EMS.Check(jobtype, job) then return true end            
-        end
-    }
-}
+-- Sets waypoint on map to most recent call and attachs you to the call. 
+Config.RespondsKey = "E"
 
 -- Enable if you only want to send alerts to onDuty officers
-Config.OnDutyOnly = true
+Config.OnDutyOnly = false
 
 Config.PhoneModel = 'prop_npc_phone_02'
 
@@ -45,44 +21,80 @@ Config.DebugChance = true
 -- Ex.  Config.ExplosionTypes = {1, 2, 3, 4, 5}
 Config.ExplosionTypes = {9}
 
--- enable default alerts
-Config.Enable.Speeding = false
+-- Enable default alerts
+Config.Enable.Speeding = true
 Config.Enable.Shooting = true
 Config.Enable.Autotheft = true
-Config.Enable.Melee = false
+Config.Enable.Melee = true
 Config.Enable.PlayerDowned = true
----------------------------------------------------------------
-Config.Locale = 'en'
 
--- enable alerts when cops break the law and print to console
-Config.Debug = true
+-- Enable alerts when cops break the law, also prints to console.
+Config.Debug = false
 
--- changes the min and max offset for the radius
+-- Changes the min and max offset for the radius
 Config.MinOffset = 1
 Config.MaxOffset = 120
----------------------------------------------------------------
 
--- locations for the hunting zones ( Label: Name of Blip // Radius: Radius of the Alert and Blip)
+-- Locations for the Hunting Zones and No Dispatch Zones( Label: Name of Blip // Radius: Radius of the Alert and Blip)
 Config.Locations = {
     ["hunting"] = {
         [1] = {label = "Hunting Zone", radius = 250.0, coords = vector3(-1339.05, -3044.38, 13.94)},
     },
+    ["NoDispatch"] = {
+        [1] = {label = "Ammunation 1", coords = vector3(13.53, -1097.92, 29.8), length = 14.0, width = 5.0, heading = 70, minZ = 28.8, maxZ = 32.8},
+        [2] = {label = "Ammunation 2", coords = vector3(821.96, -2163.09, 29.62), length = 14.0, width = 5.0, heading = 270, minZ = 28.62, maxZ = 32.62},
+    },
 }
 
----------------------------------------------------------------
+Config.AuthorizedJobs = {
+    LEO = { -- this is for job checks which should only return true for police officers
+        Jobs = {['police'] = true, ['fib'] = true, ['sheriff'] = true},
+        Types = {['police'] = true, ['leo'] = true},
+        Check = function(PlyData)
+            PlyData = PlyData or QBCore.Functions.GetPlayerData()
+            if not PlyData or (PlyData and (not PlyData.job or not PlyData.job.type))  then return false end
+            local job, jobtype = PlyData.job.name, PlyData.job.type
+            if Config.AuthorizedJobs.LEO.Jobs[job] or Config.AuthorizedJobs.LEO.Types[jobtype] then return true end
+        end
+    },
+    EMS = { -- this if for job checks which should only return true for ems workers
+        Jobs = {['ambulance'] = true, ['fire'] = true},
+        Types = {['ambulance'] = true, ['fire'] = true, ['ems'] = true},
+        Check = function(PlyData)
+            PlyData = PlyData or QBCore.Functions.GetPlayerData()
+            if not PlyData or (PlyData and (not PlyData.job or not PlyData.job.type))  then return false end
+            local job, jobtype = PlyData.job.name, PlyData.job.type
+            if Config.AuthorizedJobs.EMS.Jobs[job] or Config.AuthorizedJobs.EMS.Types[jobtype] then return true end
+        end
+    },
+    FirstResponder = { -- do not touch, this is a combined job checking function for emergency services (police and ems)
+        Check = function(PlyData)
+            PlyData = PlyData or QBCore.Functions.GetPlayerData()
+            if not PlyData or (PlyData and (not PlyData.job or not PlyData.job.type))  then return false end
+            local job, jobtype = PlyData.job.name, PlyData.job.type
+            if Config.AuthorizedJobs.LEO.Check(PlyData, jobtype, job) or Config.AuthorizedJobs.EMS.Check(PlyData, jobtype, job) then return true end            
+        end
+    }
+}
 
 for k, v in pairs(Config.Enable) do
     print(k, v, json.encode(v))
-    if Config.Enable[k] ~= false then
+    if Config.Enable[k] then
         Config[k] = {}
         Config.Timer[k] = 0 -- Default to 0 seconds
         Config[k].Success = 30 -- Default to 30 seconds
         Config[k].Fail = 2 -- Default to 2 seconds
     end
 end
+
 -- If you want to set specific timers, do it here
 if Config.Shooting then
     Config.Shooting.Success = 10 -- 10 seconds
+    Config.Shooting.Fail = 0 -- 0 seconds
+end
+
+if Config.PlayerDowned then
+    Config.PlayerDowned.Success = 5 -- 5 seconds 
     Config.Shooting.Fail = 0 -- 0 seconds
 end
 
